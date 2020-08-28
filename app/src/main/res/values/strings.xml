@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Tubidy Music APP</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="loadingtitle">Please wait</string>
+    <string name="loadingdesc">Downloading data</string>
+    <string name="appbartitle">Music Player</string>
+    <string name="snackbarnomusic">No Music Was Playing</string>
+    <string name="quittitle">Are You Sure to Quit App ?</string>
+    <string name="quitmessage">Music Will Stopped if Quit App, Just Press Home button if u wanna still listening music</string>
+    <string name="quitbutton">Sure Quit</string>
+
+
+</resources>

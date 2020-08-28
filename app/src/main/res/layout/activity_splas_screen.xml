@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey_50"
+    android:id="@+id/splashLayout"
+    tools:context=".activity.SplashScreenActivity">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/icontransparent"
+        android:layout_centerInParent="true" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.CubeGrid"
+        android:layout_below="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:SpinKit_Color="@color/colorPrimary" />
+
+</RelativeLayout>

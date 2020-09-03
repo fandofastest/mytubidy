@@ -2,7 +2,13 @@ package com.tubidyapp.freemusic.adapter;
 
 import android.content.Context;
 
+import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +19,18 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.krossovochkin.bottomsheetmenu.BottomSheetMenu;
 import com.tubidyapp.freemusic.R;
 import com.tubidyapp.freemusic.model.MusicSongOnline;
+import com.tubidyapp.freemusic.utils.MusicUtils;
 import com.tubidyapp.freemusic.utils.Tools;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.tubidyapp.freemusic.servicemusic.PlayerService.totalduration;
 
 public class AdapterMusic extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -28,10 +40,10 @@ public class AdapterMusic extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private  int menures;
     private OnItemClickListener mOnItemClickListener;
     private OnMoreButtonClickListener onMoreButtonClickListener;
-
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
+
 
     public void setOnMoreButtonClickListener(final OnMoreButtonClickListener onMoreButtonClickListener) {
         this.onMoreButtonClickListener = onMoreButtonClickListener;
@@ -47,16 +59,18 @@ public class AdapterMusic extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public ImageView image;
         public TextView title;
         public TextView brief;
+        public  TextView duration;
         public ImageButton more;
         public View lyt_parent;
 
         public OriginalViewHolder(View v) {
             super(v);
-            image = (ImageView) v.findViewById(R.id.image);
+            image = (ImageView) v.findViewById(R.id.img);
             title = (TextView) v.findViewById(R.id.title);
             brief = (TextView) v.findViewById(R.id.brief);
             more = (ImageButton) v.findViewById(R.id.more);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            duration=v.findViewById(R.id.txt_time);
         }
     }
 
@@ -73,41 +87,42 @@ public class AdapterMusic extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
-
+            MusicUtils utils = new MusicUtils();
             final MusicSongOnline musicSongOnline = items.get(position);
             view.title.setText(musicSongOnline.getTitle());
             view.brief.setText(musicSongOnline.getArtist());
+            view.duration.setText(utils.milliSecondsToTimer(Long.parseLong(musicSongOnline.getDuration())));
             Tools.displayImageOriginal(ctx, view.image, musicSongOnline.getImageurl());
-            view.lyt_parent.setOnClickListener(new View.OnClickListener() {
+            view.lyt_parent.setOnClickListener(v -> new BottomSheetMenu.Builder(ctx, new BottomSheetMenu.BottomSheetMenuListener() {
                 @Override
-                public void onClick(View view) {
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(view, position);
-                    }
-                }
-            });
+                public void onCreateBottomSheetMenu(MenuInflater inflater, Menu menu) {
+                    inflater.inflate(menures, menu);
 
-            view.more.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (onMoreButtonClickListener == null) return;
-                    onMoreButtonClick(view, position,menures);
+
+
                 }
-            });
+
+                @Override
+                public void onBottomSheetMenuItemSelected(MenuItem item) {
+                    onMoreButtonClickListener.onItemClick(item,position);
+
+
+
+                }
+            }).show());
+
+//            view.more.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    if (onMoreButtonClickListener == null) return;
+//                    onMoreButtonClick(view, position,menures);
+//                }
+//            });
         }
     }
 
     private void onMoreButtonClick(final View view, final int pos,int menures) {
-        PopupMenu popupMenu = new PopupMenu(ctx, view);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                onMoreButtonClickListener.onItemClick(view, pos, item);
-                return true;
-            }
-        });
-        popupMenu.inflate(menures);
-        popupMenu.show();
+
     }
 
     @Override
@@ -120,7 +135,7 @@ public class AdapterMusic extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public interface OnMoreButtonClickListener {
-        void onItemClick(View view, int pos, MenuItem item);
+        void onItemClick( MenuItem item,int pos);
     }
 
 }

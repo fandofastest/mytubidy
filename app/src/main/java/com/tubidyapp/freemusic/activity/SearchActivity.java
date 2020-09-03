@@ -91,44 +91,51 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setHasFixedSize(true);
-        adapterListMusicSong = new AdapterMusic(getApplicationContext(), listmysong,R.menu.menu_song_more);
+        adapterListMusicSong = new AdapterMusic(SearchActivity.this, listmysong,R.menu.menu_song_more);
         recyclerView.setAdapter(adapterListMusicSong);
-        adapterListMusicSong.setOnItemClickListener(new AdapterMusic.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int pos) {
-                playmusic(pos,listmysong);
-            }
-        });
+
         adapterListMusicSong.setOnMoreButtonClickListener(new AdapterMusic.OnMoreButtonClickListener() {
             @Override
-            public void onItemClick(View view, int pos, MenuItem item) {
+            public void onItemClick(MenuItem item, int pos) {
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_playlist:
 
-                if (item.getTitle().equals("Add to playlist")){
-                    MusicSongOnline musicSongOnline =listmysong.get(pos);
-                    addtoplaylits(musicSongOnline);
+                        MusicSongOnline musicSongOnline =PlayerService.listtopsong.get(pos);
+                        addtoplaylits(musicSongOnline);
 
+
+
+                        break;
+
+                    case R.id.action_play:
+                         playmusic(pos,PlayerService.listtopsong);
+
+
+                        break;
+                    case  R.id.action_share:
+                        try {
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                            String shareMessage= "\nLet me recommend you this application\n\n";
+                            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "choose one"));
+                        } catch(Exception e) {
+                            //e.toString();
+                        }
+                        break;
+
+                    default:
                 }
 
-                else if (item.getTitle().equals("Play")){
 
-                    playmusic(pos,listmysong);
-                }
-
-                else {
-                    try {
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                        String shareMessage= "\nLet me recommend you this application\n\n";
-                        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                        startActivity(Intent.createChooser(shareIntent, "choose one"));
-                    } catch(Exception e) {
-                        //e.toString();
-                    }
-
-                }
             }
+
+
+
+
         });
 
         type=getIntent().getStringExtra("type");

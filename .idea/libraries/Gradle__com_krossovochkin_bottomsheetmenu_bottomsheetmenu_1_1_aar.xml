@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.krossovochkin.bottomsheetmenu:bottomsheetmenu:1.1@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6650178f4f7970a919d614bfda17ab29/jetified-bottomsheetmenu-1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6650178f4f7970a919d614bfda17ab29/jetified-bottomsheetmenu-1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6650178f4f7970a919d614bfda17ab29/jetified-bottomsheetmenu-1.1/res" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.krossovochkin.bottomsheetmenu/bottomsheetmenu/1.1/ef66d54cf2a7f07eed3291d61834bbddf72af9f7/bottomsheetmenu-1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.krossovochkin.bottomsheetmenu/bottomsheetmenu/1.1/95abe00403ba23cb4595347f266420c2a2c74e9a/bottomsheetmenu-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

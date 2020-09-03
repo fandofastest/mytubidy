@@ -56,51 +56,45 @@ public class PlaylistsFragment extends Fragment {
         mAdapter = new AdapterMusic(getActivity(), PlayerService.listplaylist,R.menu.menu_more_playlists);
         recyclerView.setAdapter(mAdapter);
 
-        // on item list clicked
-        mAdapter.setOnItemClickListener(new AdapterMusic.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int pos) {
 
-                if (context instanceof MainActivity) {
-                    ((MainActivity)context).playmusic(pos,PlayerService.listplaylist);
-                }
-
-            }
-
-
-        });
 
         mAdapter.setOnMoreButtonClickListener(new AdapterMusic.OnMoreButtonClickListener() {
             @Override
-            public void onItemClick(View view, int pos, MenuItem item) {
+            public void onItemClick(MenuItem item, int pos) {
+                MusicSongOnline musicSongOnline =PlayerService.listtopsong.get(pos);
+
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.remove:
+
+                        if (context instanceof MainActivity) {
+                            ((MainActivity)context).removeplaylists(musicSongOnline);
+                        }
 
 
-                MusicSongOnline musicSongOnline =PlayerService.listplaylist.get(pos);
 
-              if (item.getTitle().equals("Remove")){
+                        break;
 
-                    if (context instanceof MainActivity) {
-                        ((MainActivity)context).removeplaylists(musicSongOnline);
-                    }
+
+                    case  R.id.action_share:
+                        try {
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                            String shareMessage= "\nLet me recommend you this application\n\n";
+                            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "choose one"));
+                        } catch(Exception e) {
+                            //e.toString();
+                        }
+                        break;
+
+                    default:
                 }
-
-                else {
-                    try {
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                        String shareMessage= "\nLet me recommend you this application\n\n";
-                        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                        startActivity(Intent.createChooser(shareIntent, "choose one"));
-                    } catch(Exception e) {
-                        //e.toString();
-                    }
-
-                }
-
-
             }
+
+
 
 
         });

@@ -422,7 +422,7 @@ public class PlayerMusicActivity extends AppCompatActivity {
 
 
         if (PlayerService.PLAYERSTATUS.equals("PLAYING")){
-            showinter(getString(R.string.interadmob));
+            showinter(Tools.faninter);
 
         }
 

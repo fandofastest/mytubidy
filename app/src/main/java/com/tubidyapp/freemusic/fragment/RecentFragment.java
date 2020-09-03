@@ -55,56 +55,48 @@ public class RecentFragment extends Fragment {
 
         recyclerView.setAdapter(mAdapter);
 
-        // on item list clicked
-        mAdapter.setOnItemClickListener(new AdapterMusic.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int pos) {
 
-                if (context instanceof MainActivity) {
-                    ((MainActivity)context).playmusic(pos,PlayerService.listrecent);
-                }
-
-            }
-
-
-        });
 
         mAdapter.setOnMoreButtonClickListener(new AdapterMusic.OnMoreButtonClickListener() {
             @Override
-            public void onItemClick(View view, int pos, MenuItem item) {
+            public void onItemClick(MenuItem item, int pos) {
                 MusicSongOnline musicSongOnline =PlayerService.listrecent.get(pos);
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_playlist:
 
-                if (item.getTitle().equals("Add to playlist")){
+                        if (context instanceof MainActivity) {
+                            ((MainActivity)context).addtoplaylits(musicSongOnline);
+                        }
 
-                    if (context instanceof MainActivity) {
-                        ((MainActivity)context).addtoplaylits(musicSongOnline);
-                    }
+                        break;
+                    case R.id.remove:
+                        if (context instanceof MainActivity) {
+                            ((MainActivity)context).removerecent(musicSongOnline);
+                        }
+                        break;
 
-                }
 
-                else if (item.getTitle().equals("Remove")){
+                    case  R.id.action_share:
+                        try {
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                            String shareMessage= "\nLet me recommend you this application\n\n";
+                            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "choose one"));
+                        } catch(Exception e) {
+                            //e.toString();
+                        }
+                        break;
 
-                    if (context instanceof MainActivity) {
-                        ((MainActivity)context).removerecent(musicSongOnline);
-                    }
-                }
-
-                else {
-                    try {
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                        String shareMessage= "\nLet me recommend you this application\n\n";
-                        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                        startActivity(Intent.createChooser(shareIntent, "choose one"));
-                    } catch(Exception e) {
-                        //e.toString();
-                    }
-
+                    default:
                 }
 
             }
+
+
 
 
         });

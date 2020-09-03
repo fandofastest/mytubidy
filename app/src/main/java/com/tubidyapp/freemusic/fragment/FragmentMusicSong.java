@@ -63,59 +63,53 @@ public class FragmentMusicSong extends Fragment {
          mAdapter = new AdapterMusic(getActivity(), PlayerService.listtopsong,R.menu.menu_song_more);
         recyclerView.setAdapter(mAdapter);
 
-        // on item list clicked
-        mAdapter.setOnItemClickListener(new AdapterMusic.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int pos) {
 
-                if (context instanceof MainActivity) {
-
-                    ((MainActivity)context).playmusic(pos,PlayerService.listtopsong);
-
-
-                }
-
-            }
-
-
-        });
 
 
 
         mAdapter.setOnMoreButtonClickListener(new AdapterMusic.OnMoreButtonClickListener() {
             @Override
-            public void onItemClick(View view, int pos, MenuItem item) {
-                if (item.getTitle().equals("Add to playlist")){
-                   MusicSongOnline musicSongOnline =PlayerService.listtopsong.get(pos);
-                    if (context instanceof MainActivity) {
-                        ((MainActivity)context).addtoplaylits(musicSongOnline);
-                    }
+            public void onItemClick(MenuItem item, int pos) {
+                final int itemId = item.getItemId();
+                switch (itemId) {
+                    case R.id.action_playlist:
 
+                        MusicSongOnline musicSongOnline =PlayerService.listtopsong.get(pos);
+                        if (context instanceof MainActivity) {
+                            ((MainActivity)context).addtoplaylits(musicSongOnline);
+                        }
+
+
+
+                        break;
+
+                    case R.id.action_play:
+                        if (context instanceof MainActivity) {
+                            ((MainActivity)context).playmusic(pos,PlayerService.listtopsong);
+                        }
+
+                        break;
+                    case  R.id.action_share:
+                        try {
+                            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                            shareIntent.setType("text/plain");
+                            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                            String shareMessage= "\nLet me recommend you this application\n\n";
+                            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                            startActivity(Intent.createChooser(shareIntent, "choose one"));
+                        } catch(Exception e) {
+                            //e.toString();
+                        }
+                        break;
+
+                    default:
                 }
 
-                else if (item.getTitle().equals("Play")){
-
-                    if (context instanceof MainActivity) {
-                        ((MainActivity)context).playmusic(pos,PlayerService.listtopsong);
-                    }
-                }
-
-                else {
-                    try {
-                        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-                        shareIntent.setType("text/plain");
-                        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
-                        String shareMessage= "\nLet me recommend you this application\n\n";
-                        shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                        startActivity(Intent.createChooser(shareIntent, "choose one"));
-                    } catch(Exception e) {
-                        //e.toString();
-                    }
-
-                }
 
             }
+
+         
 
 
         });

@@ -55,6 +55,7 @@ import com.tubidyapp.freemusic.utils.Tools;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.fando.GDPRChecker;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -157,7 +158,12 @@ public class MainActivity extends AppCompatActivity {
         MyAds myAds= new MyAds();
         myAds.showBannerAds(MainActivity.this,bannerlayout,Tools.fanbanner,Tools.admobbanner,display);
 
-
+        new GDPRChecker()
+                .withContext(getApplicationContext())
+                .withActivity(MainActivity.this)
+                .withAppId("your admob appid")
+                .withDebug()
+                .check();
 
 
 
@@ -433,7 +439,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAdsfinish() {
 
                 startActivity(intent);
-                finish();
+
             }
 
             @Override
@@ -479,7 +485,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAdsfinish() {
 
                 startActivity(intent);
-                finish();
+        
             }
 
             @Override

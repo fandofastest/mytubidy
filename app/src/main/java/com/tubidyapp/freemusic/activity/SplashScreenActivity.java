@@ -120,8 +120,13 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
 
                         myAds.showinter(SplashScreenActivity.this,Tools.admobinter);
                     }
-                    else {
+                    else if (Tools.ads.equals("fan")) {
                         myAds.showinterfb(SplashScreenActivity.this,Tools.faninter);
+                    }
+                    else {
+                        Intent intent = new Intent(SplashScreenActivity.this,MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
 
                     myAds.setCustomObjectListener(new MyAds.MyCustomObjectListener() {

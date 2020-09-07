@@ -430,8 +430,11 @@ public class MainActivity extends AppCompatActivity {
 
             myAds.showinter(MainActivity.this,Tools.admobinter);
         }
-        else {
+        else if (Tools.ads.equals("fan")) {
             myAds.showinterfb(MainActivity.this,Tools.faninter);
+        }
+        else {
+            startActivity(intent);
         }
 
         myAds.setCustomObjectListener(new MyAds.MyCustomObjectListener() {
@@ -476,8 +479,11 @@ public class MainActivity extends AppCompatActivity {
 
             myAds.showinter(MainActivity.this,Tools.admobinter);
         }
-        else {
+        else   if (Tools.ads.equals("fan")) {
             myAds.showinterfb(MainActivity.this,Tools.faninter);
+        }
+        else {
+            startActivity(intent);
         }
 
         myAds.setCustomObjectListener(new MyAds.MyCustomObjectListener() {

@@ -308,8 +308,11 @@ public class SearchActivity extends AppCompatActivity {
 
             myAds.showinter(SearchActivity.this,Tools.admobinter);
         }
-        else {
+        else   if (Tools.ads.equals("fan")) {
             myAds.showinterfb(SearchActivity.this,Tools.faninter);
+        }
+        else {
+            startActivity(intent);
         }
 
         myAds.setCustomObjectListener(new MyAds.MyCustomObjectListener() {

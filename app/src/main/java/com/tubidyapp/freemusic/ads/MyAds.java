@@ -284,7 +284,8 @@ public class MyAds {
             mAdViewLayout.addView(mAdView);
 
         }
-        else {
+
+        else if (Tools.ads.equals("fan")){
             mAdViewLayout.addView(adViewfb);
         }
 

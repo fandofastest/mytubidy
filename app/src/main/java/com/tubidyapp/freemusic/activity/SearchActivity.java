@@ -101,7 +101,7 @@ public class SearchActivity extends AppCompatActivity {
                 switch (itemId) {
                     case R.id.action_playlist:
 
-                        MusicSongOnline musicSongOnline =PlayerService.listtopsong.get(pos);
+                        MusicSongOnline musicSongOnline =listmysong.get(pos);
                         addtoplaylits(musicSongOnline);
 
 
@@ -109,7 +109,7 @@ public class SearchActivity extends AppCompatActivity {
                         break;
 
                     case R.id.action_play:
-                         playmusic(pos,PlayerService.listtopsong);
+                         playmusic(pos,listmysong);
 
 
                         break;

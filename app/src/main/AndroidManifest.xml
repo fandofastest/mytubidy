@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tubidyapp.freemusic">
+    package="com.tubidyapp.freeapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
-        android:name="com.tubidyapp.freemusic.utils.Myapp"
+        android:name="com.tubidyapp.freeapp.utils.Myapp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,18 +20,18 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-3940256099942544~3347511713"/>
-        <activity android:name="com.tubidyapp.freemusic.activity.SplashScreenActivity">
+        <activity android:name="com.tubidyapp.freeapp.activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.tubidyapp.freemusic.activity.MainActivity" />
-        <activity android:name="com.tubidyapp.freemusic.activity.SearchActivity"/>
-        <activity android:name="com.tubidyapp.freemusic.activity.PlayerMusicActivity" />
+        <activity android:name="com.tubidyapp.freeapp.activity.MainActivity" />
+        <activity android:name="com.tubidyapp.freeapp.activity.SearchActivity"/>
+        <activity android:name="com.tubidyapp.freeapp.activity.PlayerMusicActivity" />
 
-        <service android:name="com.tubidyapp.freemusic.servicemusic.PlayerService"/>
+        <service android:name="com.tubidyapp.freeapp.servicemusic.PlayerService"/>
 
 
 

@@ -30,7 +30,6 @@ import static android.content.ContentValues.TAG;
 public class Ads {
 
     public static String admobbanner,admobinter,fanbanner,faninter,primaryads,modealternatif,redirect,apk;
-    public  static String urlconfig="https://fando.id/api/myappfile.php";
     private InterstitialAd interstitialAd;
     private RewardedAd rewardedAd;
     com.facebook.ads.AdView adViewfb;

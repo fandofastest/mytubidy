@@ -11,6 +11,7 @@
     <color name="colorChipViewBackground">#E0E0E0</color>
     <color name="colorCloseChip">#ababab</color>
     <color name="white_transparency">#b9ffffff</color>
+    <color name="white">#ffffff</color>
     <declare-styleable name="ChipView"><attr format="string" name="label"/><attr format="color" name="labelColor"/><attr format="boolean" name="hasAvatarIcon"/><attr format="reference" name="avatarIcon"/><attr format="boolean" name="deletable"/><attr format="reference" name="deleteIcon"/><attr format="color" name="deleteIconColor"/><attr format="color" name="backgroundColor"/></declare-styleable>
     <declare-styleable name="ChipsInput"><attr format="string" name="hint"/><attr format="color" name="hintColor"/><attr format="color" name="textColor"/><attr format="integer" name="maxRows"/><attr format="color" name="chip_labelColor"/><attr format="boolean" name="chip_hasAvatarIcon"/><attr format="boolean" name="chip_deletable"/><attr format="reference" name="chip_deleteIcon"/><attr format="color" name="chip_deleteIconColor"/><attr format="color" name="chip_backgroundColor"/><attr format="boolean" name="showChipDetailed"/><attr format="color" name="chip_detailed_textColor"/><attr format="color" name="chip_detailed_backgroundColor"/><attr format="color" name="chip_detailed_deleteIconColor"/><attr format="color" name="filterable_list_backgroundColor"/><attr format="color" name="filterable_list_textColor"/></declare-styleable>
     <declare-styleable name="ScrollViewMaxHeight"><attr format="dimension" name="maxHeight"/></declare-styleable>

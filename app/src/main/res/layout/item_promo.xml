@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imagepromotion"
+        android:layout_width="386sp"
+        android:layout_height="134sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/rounded"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titlepromo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="4dp"
+        android:text="Title Promo"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/descpromo"
+        app:layout_constraintEnd_toStartOf="@+id/install"
+        app:layout_constraintStart_toStartOf="@+id/imagepromotion" />
+
+    <TextView
+        android:id="@+id/descpromo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="Desc Promo"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/imagepromotion"
+        app:layout_constraintEnd_toStartOf="@+id/install"
+        app:layout_constraintStart_toStartOf="@+id/titlepromo" />
+
+    <Button
+        android:id="@+id/install"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/pink_500"
+        android:text="Install"
+        android:textColor="@color/blue_50"
+        app:layout_constraintBottom_toBottomOf="@+id/imagepromotion"
+        app:layout_constraintEnd_toEndOf="@+id/imagepromotion" />
+</androidx.constraintlayout.widget.ConstraintLayout>

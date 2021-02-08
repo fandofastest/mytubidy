@@ -10,6 +10,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aad6296906bdaee53906295dfd0c37ef/jetified-cfalertdialog-1.1.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aad6296906bdaee53906295dfd0c37ef/jetified-cfalertdialog-1.1.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aad6296906bdaee53906295dfd0c37ef/jetified-cfalertdialog-1.1.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1cf85ff520c65db497bf4e14264b3deb/jetified-cfalertdialog-1.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1cf85ff520c65db497bf4e14264b3deb/jetified-cfalertdialog-1.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1cf85ff520c65db497bf4e14264b3deb/jetified-cfalertdialog-1.1.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.crowdfire.cfalertdialog/cfalertdialog/1.1.0/fae86a0523972085ce0d09ecde348d62a8272bf9/cfalertdialog-1.1.0-javadoc.jar!/" />

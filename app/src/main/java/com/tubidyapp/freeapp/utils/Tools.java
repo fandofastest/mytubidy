@@ -45,7 +45,15 @@ public class Tools {
     public static String KEYSC;
     public static String SERVERMUSIC="https://fando.id/soundcloud/get.php?id=";
 
-
+    public static void displayImage(Context ctx, ImageView img, String imgurl,int placeholder) {
+        try {
+            Glide.with(ctx).load(imgurl)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .placeholder(placeholder)
+                    .into(img);
+        } catch (Exception e) {
+        }
+    }
 
 
     public static void setSystemBarColor(Activity act) {

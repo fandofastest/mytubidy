@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,19 +9,22 @@
     android:fitsSystemWindows="true">
 
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
-        android:background="@drawable/bggrdient"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:background="@drawable/bggrdient"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/player_control"
+        app:layout_constraintTop_toTopOf="parent">
 
->
+        >
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:contentInsetStartWithNavigation="0dp"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
@@ -29,7 +32,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/spacing_xxlarge"
+            android:layout_height="wrap_content"
             app:tabContentStart="60dp"
             app:tabGravity="fill"
             app:tabIndicatorColor="@android:color/white"
@@ -42,107 +45,120 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/imageSlider"
+        android:layout_width="0dp"
+        android:layout_height="150sp"
+        app:layout_constraintBottom_toTopOf="@+id/view_pager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/appbar"
+        app:sliderAnimationDuration="600"
+        app:sliderAutoCycleDirection="back_and_forth"
+        app:sliderAutoCycleEnabled="true"
+        app:sliderIndicatorAnimationDuration="600"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorMargin="15dp"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorPadding="4dp"
+        app:sliderIndicatorRadius="1dp"
+        app:sliderIndicatorSelectedColor="@color/pink_200"
+        app:sliderIndicatorUnselectedColor="@color/grey_100"
+        app:sliderScrollTimeInSec="1"
+        app:sliderStartAutoCycle="true" />
+
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="61dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/player_control"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/player_control"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <View
+        <ProgressBar
+            android:id="@+id/song_progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@drawable/bg_gradient_soft" />
+            android:layout_height="@dimen/spacing_small"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="10"
+            android:progressDrawable="@drawable/progressbar_red" />
 
         <LinearLayout
-            android:id="@+id/player_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@android:color/white">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_small">
 
-            <ProgressBar
-                android:id="@+id/song_progressbar"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spacing_small"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="10"
-                android:progressDrawable="@drawable/progressbar_red" />
+            <ImageButton
+                android:id="@+id/bt_expand"
+                android:layout_width="@dimen/spacing_xxxlarge"
+                android:layout_height="@dimen/spacing_xxxlarge"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:onClick="controlClick"
+                android:rotation="180"
+                android:tint="@color/grey_80"
+                app:srcCompat="@drawable/ic_expand_arrow" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="@dimen/spacing_small">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/bt_expand"
-                    android:layout_width="@dimen/spacing_xxxlarge"
-                    android:layout_height="@dimen/spacing_xxxlarge"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:onClick="controlClick"
-                    android:rotation="180"
-                    android:tint="@color/grey_80"
-                    app:srcCompat="@drawable/ic_expand_arrow" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/titlehomeplayer"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="Locking Up Your Symptoms"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                    android:textColor="@color/grey_90" />
 
-                    <TextView
-                        android:id="@+id/titlehomeplayer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Locking Up Your Symptoms"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/grey_90" />
-
-                    <TextView
-                        android:id="@+id/artishomeplayer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Who He Should Be"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/grey_60" />
-
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/bt_play"
-                    android:layout_width="@dimen/spacing_xxxlarge"
-                    android:layout_height="@dimen/spacing_xxxlarge"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/grey_80"
-                    app:srcCompat="@drawable/ic_play_arrow" />
+                <TextView
+                    android:id="@+id/artishomeplayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Who He Should Be"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@color/grey_60" />
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/banner_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                />
+            <ImageButton
+                android:id="@+id/bt_play"
+                android:layout_width="@dimen/spacing_xxxlarge"
+                android:layout_height="@dimen/spacing_xxxlarge"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@color/grey_80"
+                app:srcCompat="@drawable/ic_play_arrow" />
 
         </LinearLayout>
 
-
-
+        <LinearLayout
+            android:id="@+id/banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
     </LinearLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

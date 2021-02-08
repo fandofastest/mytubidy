@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -172,6 +173,8 @@ public class PlayerService extends Service {
             currentartist=musicSongOnline.getArtist();
             currenttitle=musicSongOnline.getTitle();
             currentimageurl=musicSongOnline.getImageurl();
+
+            Log.e("playsong", "playsong: "+musicSongOnline.getId() );
 
 
 

@@ -86,12 +86,14 @@ public class SplashScreenActivity extends AppCompatActivity implements Animation
     }
 
     public void getstatus(){
-        String url=Ads.urlconfig;
+        String url=getString(R.string.url);
         JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONObject response) {
-
+            public void onResponse(JSONObject myresponse) {
                 try {
+                JSONObject response=myresponse.getJSONObject("app");
+
+
 
 
                     Ads.primaryads=response.getString("primaryads");

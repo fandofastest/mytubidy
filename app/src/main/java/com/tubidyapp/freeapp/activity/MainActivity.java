@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,11 +35,19 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 import com.tubidyapp.freeapp.R;
 import com.tubidyapp.freeapp.adapter.AdapterMusic;
+import com.tubidyapp.freeapp.adapter.SliderAdapter;
 import com.tubidyapp.freeapp.ads.Ads;
 import com.tubidyapp.freeapp.fragment.FragmentMusicAlbum;
 import com.tubidyapp.freeapp.fragment.FragmentMusicSong;
@@ -47,10 +56,15 @@ import com.tubidyapp.freeapp.fragment.PlaylistsFragment;
 import com.tubidyapp.freeapp.fragment.RecentFragment;
 import com.tubidyapp.freeapp.model.MusicSongOffline;
 import com.tubidyapp.freeapp.model.MusicSongOnline;
+import com.tubidyapp.freeapp.model.SliderModel;
 import com.tubidyapp.freeapp.servicemusic.PlayerService;
 import com.tubidyapp.freeapp.utils.MusicUtils;
 import com.tubidyapp.freeapp.utils.RealmHelper;
 import com.tubidyapp.freeapp.utils.Tools;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
         initToolbar();
         initComponent();
         initrealm();
+        initSlider();
         if (PlayerService.PLAYERSTATUS.equals("PLAYING")){
             bt_play.setImageResource(R.drawable.ic_pause);
             hometitle.setText(PlayerService.currenttitle);
@@ -567,6 +582,52 @@ public class MainActivity extends AppCompatActivity {
         realmHelper.removefromplaylists(musicSongOnline);
         adapter.notifyDataSetChanged();
         Toast.makeText(getApplicationContext(),"Removed",LENGTH_LONG).show();
+
+
+    }
+
+    void  initSlider(){
+        List<SliderModel> list = new ArrayList<>();
+        SliderView sliderView = findViewById(R.id.imageSlider);
+
+        SliderAdapter adapter = new SliderAdapter(MainActivity.this,list);
+        sliderView.setSliderAdapter(adapter);
+        sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+
+        sliderView.setScrollTimeInSec(4); //set scroll delay in seconds :
+        sliderView.startAutoCycle();
+        list.clear();
+
+        JsonObjectRequest jsonObjectRequest=new JsonObjectRequest(Request.Method.GET, getString(R.string.url), null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray jsonArray = response.getJSONArray("promo");
+                    for (int i = 0; i <jsonArray.length() ; i++) {
+                        JSONObject jsonObject= jsonArray.getJSONObject(i);
+
+                        SliderModel sliderModel= new SliderModel();
+                        sliderModel.setTitle(jsonObject.getString("title"));
+                        sliderModel.setDesc(jsonObject.getString("desc"));
+                        sliderModel.setImageurl(jsonObject.getString("imageurl"));
+                        sliderModel.setUrltarget(jsonObject.getString("linkurl"));
+                        list.add(sliderModel);
+                    }
+                    adapter.notifyDataSetChanged();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+            }
+        }, error -> Log.e("err","test"));
+
+        Volley.newRequestQueue(MainActivity.this).add(jsonObjectRequest);
 
 
     }
